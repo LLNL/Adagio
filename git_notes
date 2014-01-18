@@ -1,0 +1,9 @@
+# To push changes from garamond to sleipnir:
+# [on garamond]
+git config remote.origin.push master:refs/remotes/garamond/master
+git push origin
+
+# To merge changes pushed from garamond to sleipnir:
+# [on sleipnir]
+git checkout master
+git merge garamond/master

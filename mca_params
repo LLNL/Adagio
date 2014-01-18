@@ -1,0 +1,579 @@
+ ompi_info --param all all
+ OpenMPI v2.8
+
+ MCA mca: parameter "mca_param_files" (current value: "/home/rountree/.openmpi/mca-params.conf:/home/rountree/local/etc/openmpi-mca-params.conf")
+	  Path for MCA configuration files containing default parameter values
+ MCA mca: parameter "mca_component_path" (current value: "/home/rountree/local/lib/openmpi:/home/rountree/.openmpi/components")
+	  Path where to look for Open MPI and ORTE components
+ MCA mca: parameter "mca_verbose" (current value: <none>)
+	  Top-level verbosity parameter
+ MCA mca: parameter "mca_component_show_load_errors" (current value: "1")
+	  Whether to show errors for components that failed to load or not
+ MCA mca: parameter "mca_component_disable_dlopen" (current value: "0")
+	  Whether to attempt to disable opening dynamic components or not
+ MCA mpi: parameter "mpi_param_check" (current value: "1")
+	  Whether you want MPI API parameters checked at run-time or not.  Possible values are 0 (no checking) and 1 (perform checking at run-time)
+ MCA mpi: parameter "mpi_yield_when_idle" (current value: "0")
+	  Yield the processor when waiting for MPI communication (for MPI processes, will default to 1 when oversubscribing nodes)
+ MCA mpi: parameter "mpi_event_tick_rate" (current value: "-1")
+	  How often to progress TCP communications (0 = never, otherwise specified in microseconds)
+ MCA mpi: parameter "mpi_show_handle_leaks" (current value: "0")
+	  Whether MPI_FINALIZE shows all MPI handles that were not freed or not
+ MCA mpi: parameter "mpi_no_free_handles" (current value: "0")
+	  Whether to actually free MPI objects when their handles are freed
+ MCA mpi: parameter "mpi_show_mca_params" (current value: "0")
+	  Whether to show all MCA parameter value during MPI_INIT or not (good for reproducability of MPI jobs)
+ MCA mpi: parameter "mpi_show_mca_params_file" (current value: <none>)
+	  If mpi_show_mca_params is true, setting this string to a valid filename tells Open MPI to dump all the MCA parameter values into a file suitable for reading via the mca_param_files parameter (good for reproducability of MPI jobs)
+ MCA mpi: parameter "mpi_paffinity_alone" (current value: "0")
+	  If nonzero, assume that this job is the only (set of) process(es) running on each node and bind processes to processors, starting with processor ID 0
+ MCA mpi: parameter "mpi_keep_peer_hostnames" (current value: "1")
+	  If nonzero, save the string hostnames of all MPI peer processes (mostly for error / debugging output messages).  This can add quite a bit of memory usage to each MPI process.
+ MCA mpi: parameter "mpi_abort_delay" (current value: "0")
+	  If nonzero, print out an identifying message when MPI_ABORT is invoked (hostname, PID of the process that called MPI_ABORT) and delay for that many seconds before exiting (a negative delay value means to never abort).  This allows attaching of a debugger before quitting the job.
+ MCA mpi: parameter "mpi_abort_print_stack" (current value: "0")
+	  If nonzero, print out a stack trace when MPI_ABORT is invoked
+ MCA mpi: parameter "mpi_preconnect_all" (current value: "0")
+	  Whether to force MPI processes to create connections / warmup with *all* peers during MPI_INIT (vs. making connections lazily -- upon the first MPI traffic between each process peer pair)
+ MCA mpi: parameter "mpi_preconnect_oob" (current value: "0")
+	  Whether to force MPI processes to fully wire-up the OOB system between MPI processes.
+ MCA mpi: parameter "mpi_leave_pinned" (current value: "0")
+	  Whether to use the "leave pinned" protocol or not.  Enabling this setting can help bandwidth performance when repeatedly sending and receiving large messages with the same buffers over RDMA-based networks.
+ MCA mpi: parameter "mpi_leave_pinned_pipeline" (current value: "0")
+	  Whether to use the "leave pinned pipeline" protocol or not.
+ MCA mpi: parameter "mpi_warn_if_thread_multiple" (current value: "1")
+	  Whether to show a warning when MPI_THREAD_MULTIPLE is used or not.
+ MCA mpi: parameter "mpi_warn_if_progress_threads" (current value: "1")
+	  Whether to show a warning when progress threads are used or not.
+MCA orte: parameter "orte_debug" (current value: "0")
+	  Top-level ORTE debug switch
+MCA orte: parameter "orte_no_daemonize" (current value: "0")
+	  Whether to properly daemonize the ORTE daemons or not
+MCA orte: parameter "orte_base_user_debugger" (current value: "totalview @mpirun@ -a @mpirun_args@ : ddt -n @np@ -start @executable@ @executable_argv@ @single_app@ : fxp @mpirun@ -a @mpirun_args@")
+	  Sequence of user-level debuggers to search for in orterun
+MCA orte: parameter "orte_abort_timeout" (current value: "10")
+	  Time to wait [in seconds] before giving up on aborting an ORTE operation
+MCA orte: parameter "orte_timing" (current value: "0")
+	  Request that critical timing loops be measured
+MCA opal: parameter "opal_signal" (current value: "6,7,8,11")
+	  If a signal is received, display the stack trace frame
+MCA backtrace: parameter "backtrace" (current value: <none>)
+	  Default selection set of components for the backtrace framework (<none> means "use all components that can be found")
+MCA backtrace: parameter "backtrace_base_verbose" (current value: "0")
+	  Verbosity level for the backtrace framework (0 = no verbosity)
+MCA backtrace: parameter "backtrace_execinfo_priority" (current value: "0")
+MCA memory: parameter "memory" (current value: <none>)
+	  Default selection set of components for the memory framework (<none> means "use all components that can be found")
+MCA memory: parameter "memory_base_verbose" (current value: "0")
+	  Verbosity level for the memory framework (0 = no verbosity)
+MCA memory: parameter "memory_ptmalloc2_priority" (current value: "0")
+MCA paffinity: parameter "paffinity_base_verbose" (current value: "0")
+	  Verbosity level of the paffinity framework
+MCA paffinity: parameter "paffinity" (current value: <none>)
+	  Default selection set of components for the paffinity framework (<none> means "use all components that can be found")
+MCA paffinity: parameter "paffinity_linux_priority" (current value: "10")
+	  Priority of the linux paffinity component
+MCA paffinity: information "paffinity_linux_have_cpu_set_t" (value: "1")
+	  Whether this component was compiled on a system with the type cpu_set_t or not (1 = yes, 0 = no)
+MCA paffinity: information "paffinity_linux_CPU_ZERO_ok" (value: "1")
+	  Whether this component was compiled on a system where CPU_ZERO() is functional or broken (1 = functional, 0 = broken/not available)
+MCA paffinity: information "paffinity_linux_sched_setaffinity_num_params" (value: "3")
+	  The number of parameters that sched_set_affinity() takes on the machine where this component was compiled
+MCA maffinity: parameter "maffinity_base_verbose" (current value: "0")
+	  Verbosity level of the maffinity framework
+MCA maffinity: parameter "maffinity" (current value: <none>)
+	  Default selection set of components for the maffinity framework (<none> means "use all components that can be found")
+MCA maffinity: parameter "maffinity_first_use_priority" (current value: "10")
+	  Priority of the first_use maffinity component
+MCA timer: parameter "timer" (current value: <none>)
+	  Default selection set of components for the timer framework (<none> means "use all components that can be found")
+MCA timer: parameter "timer_base_verbose" (current value: "0")
+	  Verbosity level for the timer framework (0 = no verbosity)
+MCA timer: parameter "timer_linux_priority" (current value: "0")
+MCA allocator: parameter "allocator" (current value: <none>)
+	  Default selection set of components for the allocator framework (<none> means "use all components that can be found")
+MCA allocator: parameter "allocator_base_verbose" (current value: "0")
+	  Verbosity level for the allocator framework (0 = no verbosity)
+MCA allocator: parameter "allocator_basic_priority" (current value: "0")
+MCA allocator: parameter "allocator_bucket_num_buckets" (current value: "30")
+MCA allocator: parameter "allocator_bucket_priority" (current value: "0")
+MCA coll: parameter "coll" (current value: <none>)
+	  Default selection set of components for the coll framework (<none> means "use all components that can be found")
+MCA coll: parameter "coll_base_verbose" (current value: "0")
+	  Verbosity level for the coll framework (0 = no verbosity)
+MCA coll: parameter "coll_basic_priority" (current value: "10")
+	  Priority of the basic coll component
+MCA coll: parameter "coll_basic_crossover" (current value: "4")
+	  Minimum number of processes in a communicator before using the logarithmic algorithms
+MCA coll: parameter "coll_self_priority" (current value: "75")
+MCA coll: parameter "coll_sm_priority" (current value: "0")
+	  Priority of the sm coll component
+MCA coll: parameter "coll_sm_control_size" (current value: "4096")
+	  Length of the control data -- should usually be either the length of a cache line on most SMPs, or the size of a page on machines that support direct memory affinity page placement (in bytes)
+MCA coll: parameter "coll_sm_bootstrap_filename" (current value: "shared_mem_sm_bootstrap")
+	  Filename (in the Open MPI session directory) of the coll sm component bootstrap rendezvous mmap file
+MCA coll: parameter "coll_sm_bootstrap_num_segments" (current value: "8")
+	  Number of segments in the bootstrap file
+MCA coll: parameter "coll_sm_fragment_size" (current value: "8192")
+	  Fragment size (in bytes) used for passing data through shared memory (will be rounded up to the nearest control_size size)
+MCA coll: parameter "coll_sm_mpool" (current value: "sm")
+	  Name of the mpool component to use
+MCA coll: parameter "coll_sm_comm_in_use_flags" (current value: "2")
+	  Number of "in use" flags, used to mark a message passing area segment as currently being used or not (must be >= 2 and <= comm_num_segments)
+MCA coll: parameter "coll_sm_comm_num_segments" (current value: "8")
+	  Number of segments in each communicator's shared memory message passing area (must be >= 2, and must be a multiple of comm_in_use_flags)
+MCA coll: parameter "coll_sm_tree_degree" (current value: "4")
+	  Degree of the tree for tree-based operations (must be => 1 and <= min(control_size, 255))
+MCA coll: information "coll_sm_shared_mem_used_bootstrap" (value: "216")
+	  Amount of shared memory used in the shared memory bootstrap area (in bytes)
+MCA coll: parameter "coll_sm_info_num_procs" (current value: "4")
+	  Number of processes to use for the calculation of the shared_mem_size MCA information parameter (must be => 2)
+MCA coll: information "coll_sm_shared_mem_used_data" (value: "548864")
+	  Amount of shared memory used in the shared memory data area for info_num_procs processes (in bytes)
+MCA coll: parameter "coll_tuned_priority" (current value: "30")
+	  Priority of the tuned coll component
+MCA coll: parameter "coll_tuned_pre_allocate_memory_comm_size_limit" (current value: "32768")
+	  Size of communicator were we stop pre-allocating memory for the fixed internal buffer used for message requests etc that is hung off the communicator data segment. I.e. if you have a 100'000 nodes you might not want to pre-allocate 200'000 request handle slots per communicator instance!
+MCA coll: parameter "coll_tuned_init_tree_fanout" (current value: "4")
+	  Inital fanout used in the tree topologies for each communicator. This is only an initial guess, if a tuned collective needs a different fanout for an operation, it build it dynamically. This parameter is only for the first guess and might save a little time
+MCA coll: parameter "coll_tuned_init_chain_fanout" (current value: "4")
+	  Inital fanout used in the chain (fanout followed by pipeline) topologies for each communicator. This is only an initial guess, if a tuned collective needs a different fanout for an operation, it build it dynamically. This parameter is only for the first guess and might save a little time
+MCA coll: parameter "coll_tuned_use_dynamic_rules" (current value: "0")
+	  Switch used to decide if we use static (compiled/if statements) or dynamic (built at runtime) decision function rules
+  MCA io: parameter "io_base_freelist_initial_size" (current value: "16")
+	  Initial MPI-2 IO request freelist size
+  MCA io: parameter "io_base_freelist_max_size" (current value: "64")
+	  Max size of the MPI-2 IO request freelist
+  MCA io: parameter "io_base_freelist_increment" (current value: "16")
+	  Increment size of the MPI-2 IO request freelist
+  MCA io: parameter "io" (current value: <none>)
+	  Default selection set of components for the io framework (<none> means "use all components that can be found")
+  MCA io: parameter "io_base_verbose" (current value: "0")
+	  Verbosity level for the io framework (0 = no verbosity)
+  MCA io: parameter "io_romio_priority" (current value: "10")
+	  Priority of the io romio component
+  MCA io: parameter "io_romio_delete_priority" (current value: "10")
+	  Delete priority of the io romio component
+  MCA io: parameter "io_romio_enable_parallel_optimizations" (current value: "0")
+	  Enable set of Open MPI-added options to improve collective file i/o performance
+MCA mpool: parameter "mpool" (current value: <none>)
+	  Default selection set of components for the mpool framework (<none> means "use all components that can be found")
+MCA mpool: parameter "mpool_base_verbose" (current value: "0")
+	  Verbosity level for the mpool framework (0 = no verbosity)
+MCA mpool: parameter "mpool_rdma_rcache_name" (current value: "vma")
+	  The name of the registration cache the mpool should use
+MCA mpool: parameter "mpool_rdma_rcache_size_limit" (current value: "0")
+	  the maximum size of registration cache in bytes. 0 is unlimited (default 0)
+MCA mpool: parameter "mpool_rdma_print_stats" (current value: "0")
+	  print pool usage statistics at the end of the run
+MCA mpool: parameter "mpool_rdma_priority" (current value: "0")
+MCA mpool: parameter "mpool_sm_allocator" (current value: "bucket")
+	  Name of allocator component to use with sm mpool
+MCA mpool: parameter "mpool_sm_max_size" (current value: "536870912")
+	  Maximum size of the sm mpool shared memory file
+MCA mpool: parameter "mpool_sm_min_size" (current value: "134217728")
+	  Minimum size of the sm mpool shared memory file
+MCA mpool: parameter "mpool_sm_per_peer_size" (current value: "33554432")
+	  Size (in bytes) to allocate per local peer in the sm mpool shared memory file, bounded by min_size and max_size
+MCA mpool: parameter "mpool_sm_verbose" (current value: "0")
+	  Enable verbose output for mpool sm component
+MCA mpool: parameter "mpool_sm_priority" (current value: "0")
+MCA mpool: parameter "mpool_base_use_mem_hooks" (current value: "0")
+	  use memory hooks for deregistering freed memory
+MCA mpool: parameter "mpool_use_mem_hooks" (current value: "0")
+	  (deprecated, use mpool_base_use_mem_hooks)
+MCA mpool: parameter "mpool_base_disable_sbrk" (current value: "0")
+	  use mallopt to override calling sbrk (doesn't return memory to OS!)
+MCA mpool: parameter "mpool_disable_sbrk" (current value: "0")
+	  (deprecated, use mca_mpool_base_disable_sbrk)
+ MCA pml: parameter "pml" (current value: <none>)
+	  Default selection set of components for the pml framework (<none> means "use all components that can be found")
+ MCA pml: parameter "pml_base_verbose" (current value: "0")
+	  Verbosity level for the pml framework (0 = no verbosity)
+ MCA pml: parameter "pml_cm_free_list_num" (current value: "4")
+	  Initial size of request free lists
+ MCA pml: parameter "pml_cm_free_list_max" (current value: "-1")
+	  Maximum size of request free lists
+ MCA pml: parameter "pml_cm_free_list_inc" (current value: "64")
+	  Number of elements to add when growing request free lists
+ MCA pml: parameter "pml_cm_priority" (current value: "30")
+	  CM PML selection priority
+ MCA pml: parameter "pml_ob1_free_list_num" (current value: "4")
+ MCA pml: parameter "pml_ob1_free_list_max" (current value: "-1")
+ MCA pml: parameter "pml_ob1_free_list_inc" (current value: "64")
+ MCA pml: parameter "pml_ob1_priority" (current value: "20")
+ MCA pml: parameter "pml_ob1_eager_limit" (current value: "131072")
+ MCA pml: parameter "pml_ob1_send_pipeline_depth" (current value: "3")
+ MCA pml: parameter "pml_ob1_recv_pipeline_depth" (current value: "4")
+ MCA pml: parameter "pml_ob1_use_early_completion" (current value: "1")
+ MCA bml: parameter "bml" (current value: <none>)
+	  Default selection set of components for the bml framework (<none> means "use all components that can be found")
+ MCA bml: parameter "bml_base_verbose" (current value: "0")
+	  Verbosity level for the bml framework (0 = no verbosity)
+ MCA bml: parameter "bml_r2_show_unreach_errors" (current value: "1")
+	  Show error message when procs are unreachable
+ MCA bml: parameter "bml_r2_priority" (current value: "0")
+MCA rcache: parameter "rcache" (current value: <none>)
+	  Default selection set of components for the rcache framework (<none> means "use all components that can be found")
+MCA rcache: parameter "rcache_base_verbose" (current value: "0")
+	  Verbosity level for the rcache framework (0 = no verbosity)
+MCA rcache: parameter "rcache_vma_priority" (current value: "0")
+ MCA btl: parameter "btl_base_debug" (current value: "0")
+	  If btl_base_debug is 1 standard debug is output, if > 1 verbose debug is output
+ MCA btl: parameter "btl" (current value: <none>)
+	  Default selection set of components for the btl framework (<none> means "use all components that can be found")
+ MCA btl: parameter "btl_base_verbose" (current value: "0")
+	  Verbosity level for the btl framework (0 = no verbosity)
+ MCA btl: parameter "btl_self_free_list_num" (current value: "0")
+	  Number of fragments by default
+ MCA btl: parameter "btl_self_free_list_max" (current value: "-1")
+	  Maximum number of fragments
+ MCA btl: parameter "btl_self_free_list_inc" (current value: "32")
+	  Increment by this number of fragments
+ MCA btl: parameter "btl_self_eager_limit" (current value: "131072")
+	  Eager size fragmeng (before the rendez-vous ptotocol)
+ MCA btl: parameter "btl_self_min_send_size" (current value: "262144")
+	  Minimum fragment size after the rendez-vous
+ MCA btl: parameter "btl_self_max_send_size" (current value: "262144")
+	  Maximum fragment size after the rendez-vous
+ MCA btl: parameter "btl_self_min_rdma_size" (current value: "2147483647")
+	  Maximum fragment size for the RDMA transfer
+ MCA btl: parameter "btl_self_max_rdma_size" (current value: "2147483647")
+	  Maximum fragment size for the RDMA transfer
+ MCA btl: parameter "btl_self_exclusivity" (current value: "65536")
+	  Device exclusivity
+ MCA btl: parameter "btl_self_flags" (current value: "10")
+	  Active behavior flags
+ MCA btl: parameter "btl_self_priority" (current value: "0")
+ MCA btl: parameter "btl_sm_free_list_num" (current value: "8")
+ MCA btl: parameter "btl_sm_free_list_max" (current value: "-1")
+ MCA btl: parameter "btl_sm_free_list_inc" (current value: "64")
+ MCA btl: parameter "btl_sm_exclusivity" (current value: "65535")
+ MCA btl: parameter "btl_sm_latency" (current value: "100")
+ MCA btl: parameter "btl_sm_max_procs" (current value: "-1")
+ MCA btl: parameter "btl_sm_sm_extra_procs" (current value: "2")
+ MCA btl: parameter "btl_sm_mpool" (current value: "sm")
+ MCA btl: parameter "btl_sm_eager_limit" (current value: "4096")
+ MCA btl: parameter "btl_sm_max_frag_size" (current value: "32768")
+ MCA btl: parameter "btl_sm_size_of_cb_queue" (current value: "128")
+ MCA btl: parameter "btl_sm_cb_lazy_free_freq" (current value: "120")
+ MCA btl: parameter "btl_sm_priority" (current value: "0")
+ MCA btl: parameter "btl_openib_verbose" (current value: "0")
+	  Output some verbose OpenIB BTL information (0 = no output, nonzero = output)
+ MCA btl: parameter "btl_openib_warn_no_hca_params_found" (current value: "1")
+	  Warn when no HCA-specific parameters are found in the INI file specified by the btl_openib_hca_param_files MCA parameter (0 = do not warn; any other value = warn)
+ MCA btl: parameter "btl_openib_warn_default_gid_prefix" (current value: "1")
+	  Warn when there is more than one active ports and at least one of them connected to the network with only default GID prefix configured (0 = do not warn; any other value = warn)
+ MCA btl: parameter "btl_openib_want_fork_support" (current value: "-1")
+	  Whether fork support is desired or not (negative = try to enable fork support, but continue even if it is not available, 0 = do not enable fork support, positive = try to enable fork support and fail if it is not available)
+ MCA btl: parameter "btl_openib_hca_param_files" (current value: "/home/rountree/local/share/openmpi/mca-btl-openib-hca-params.ini")
+	  Colon-delimited list of INI-style files that contain HCA vendor/part-specific parameters
+ MCA btl: parameter "btl_openib_max_btls" (current value: "-1")
+	  Maximum number of HCA ports to use (-1 = use all available, otherwise must be >= 1)
+ MCA btl: parameter "btl_openib_free_list_num" (current value: "8")
+	  Intial size of free lists (must be >= 1)
+ MCA btl: parameter "btl_openib_free_list_max" (current value: "-1")
+	  Maximum size of free lists (-1 = infinite, otherwise must be >= 0)
+ MCA btl: parameter "btl_openib_free_list_inc" (current value: "32")
+	  Increment size of free lists (must be >= 1)
+ MCA btl: parameter "btl_openib_mpool" (current value: "rdma")
+	  Name of the memory pool to be used (it is unlikely that you will ever want to change this
+ MCA btl: parameter "btl_openib_reg_mru_len" (current value: "16")
+	  Length of the registration cache most recently used list (must be >= 1)
+ MCA btl: parameter "btl_openib_ib_cq_size" (current value: "1000")
+	  Size of the IB completion queue (will automatically be set to a minimum of (2 * number_of_peers * btl_openib_rd_num))
+ MCA btl: parameter "btl_openib_ib_sg_list_size" (current value: "4")
+	  Size of IB segment list (must be >= 1)
+ MCA btl: parameter "btl_openib_ib_pkey_ix" (current value: "0")
+	  InfiniBand pkey index (must be >= 0)
+ MCA btl: parameter "btl_openib_ib_pkey_val" (current value: "0")
+	  OpenFabrics partition key (pkey) value. Unsigned integer decimal or hex values are allowed (e.g., "3" or "0x3f") and will be masked against the maximum allowable IB paritition key value (0x7fff)
+ MCA btl: parameter "btl_openib_ib_psn" (current value: "0")
+	  InfiniBand packet sequence starting number (must be >= 0)
+ MCA btl: parameter "btl_openib_ib_qp_ous_rd_atom" (current value: "4")
+	  InfiniBand outstanding atomic reads (must be >= 0)
+ MCA btl: parameter "btl_openib_ib_mtu" (current value: "3")
+	  IB MTU, in bytes (if not specified in INI files).  Valid values are: 1=256 bytes, 2=512 bytes, 3=1024 bytes, 4=2048 bytes, 5=4096 bytes
+ MCA btl: parameter "btl_openib_ib_min_rnr_timer" (current value: "5")
+	  InfiniBand minimum "receiver not ready" timer, in seconds (must be >= 0 and <= 31)
+ MCA btl: parameter "btl_openib_ib_timeout" (current value: "10")
+	  InfiniBand transmit timeout, plugged into formula: 4.096 microseconds * (2^btl_openib_ib_timeout)(must be >= 0 and <= 31)
+ MCA btl: parameter "btl_openib_ib_retry_count" (current value: "7")
+	  InfiniBand transmit retry count (must be >= 0 and <= 7)
+ MCA btl: parameter "btl_openib_ib_rnr_retry" (current value: "7")
+	  InfiniBand "receiver not ready" retry count (must be >= 0 and <= 7)
+ MCA btl: parameter "btl_openib_ib_max_rdma_dst_ops" (current value: "4")
+	  InfiniBand maximum pending RDMA destination operations (must be >= 0)
+ MCA btl: parameter "btl_openib_ib_service_level" (current value: "0")
+	  InfiniBand service level (must be >= 0)
+ MCA btl: parameter "btl_openib_ib_static_rate" (current value: "0")
+	  InfiniBand static rate (must be >= 0; defulat: %d)
+ MCA btl: parameter "btl_openib_exclusivity" (current value: "1024")
+	  OpenIB BTL exclusivity (must be >= 0)
+ MCA btl: parameter "btl_openib_rd_num" (current value: "8")
+	  Number of receive descriptors to post to a queue pair (must be >= 1)
+ MCA btl: parameter "btl_openib_rd_low" (current value: "6")
+	  Low water mark before reposting occurs (must be >= 1)
+ MCA btl: parameter "btl_openib_rd_win" (current value: "4")
+	  Window size at which generate explicit credit message (must be >= 1)
+ MCA btl: parameter "btl_openib_use_srq" (current value: "0")
+	  If nonzero, use the InfiniBand shared receive queue ("SRQ")
+ MCA btl: parameter "btl_openib_srq_rd_max" (current value: "1000")
+	  Maxium number of receive descriptors posted per SRQ (only relevant if btl_openib_use_srq is true; must be >= 1)
+ MCA btl: parameter "btl_openib_srq_rd_per_peer" (current value: "16")
+	  Number of receive descriptors posted per peer in the SRQ (only relevant if btl_openib_use_srq is true; must be >= 1)
+ MCA btl: parameter "btl_openib_srq_sd_max" (current value: "8")
+	  Maximum number of send descriptors posted (only relevant if btl_openib_use_srq is true; must be >= 1)
+ MCA btl: parameter "btl_openib_use_eager_rdma" (current value: "1")
+	  Use RDMA for eager messages 
+ MCA btl: parameter "btl_openib_eager_rdma_threshold" (current value: "16")
+	  Use RDMA for short messages after this number of messages are received from a given peer (must be >= 1)
+ MCA btl: parameter "btl_openib_max_eager_rdma" (current value: "16")
+	  Maximum number of peers allowed to use RDMA for short messages (RDMA is used for all long messages, except if explicitly disabled, such as with the "dr" pml) (must be >= 0)
+ MCA btl: parameter "btl_openib_eager_rdma_num" (current value: "16")
+	  Number of RDMA buffers to allocate for small messages(must be >= 1)
+ MCA btl: parameter "btl_openib_btls_per_lid" (current value: "1")
+	  Number of BTLs to create for each InfiniBand LID (must be >= 1)
+ MCA btl: parameter "btl_openib_max_lmc" (current value: "0")
+	  Maximum number of LIDs to use for each HCA port (must be >= 0, where 0 = use all available)
+ MCA btl: parameter "btl_openib_buffer_alignment" (current value: "64")
+	  Prefered communication buffer alignment, in bytes (must be >= 0)
+ MCA btl: parameter "btl_openib_eager_limit" (current value: "12288")
+	  Eager send limit, in bytes (must be >= 1)
+ MCA btl: parameter "btl_openib_min_send_size" (current value: "32768")
+	  Minimum send size, in bytes (must be >= 1)
+ MCA btl: parameter "btl_openib_max_send_size" (current value: "65536")
+	  Maximum send size, in bytes (must be >= 1)
+ MCA btl: parameter "btl_openib_min_rdma_size" (current value: "1048576")
+	  Minimum RDMA size, in bytes (must be >= 1)
+ MCA btl: parameter "btl_openib_max_rdma_size" (current value: "1048576")
+	  Maximium RDMA size, in bytes (must be >= 1)
+ MCA btl: parameter "btl_openib_flags" (current value: "54")
+	  BTL flags, added together: SEND=1, PUT=2, GET=4 (cannot be 0)
+ MCA btl: parameter "btl_openib_bandwidth" (current value: "0")
+	  Approximate maximum bandwidth of each network interface in megabits per second (if 0, filled in at run-time by querying the HCA, otherwise must be > 0) 
+ MCA btl: information "btl_openib_have_fork_support" (value: "1")
+	  Whether the OpenFabrics stack supports applications that invoke the "fork()" system call or not (0 = no, 1 = yes).  Note that this value does NOT indicate whether the system being run on supports "fork()" with OpenFabrics applications or not.
+ MCA btl: parameter "btl_openib_priority" (current value: "0")
+ MCA btl: parameter "btl_tcp_if_include" (current value: <none>)
+ MCA btl: parameter "btl_tcp_if_exclude" (current value: "lo")
+ MCA btl: parameter "btl_tcp_free_list_num" (current value: "8")
+ MCA btl: parameter "btl_tcp_free_list_max" (current value: "-1")
+ MCA btl: parameter "btl_tcp_free_list_inc" (current value: "32")
+ MCA btl: parameter "btl_tcp_sndbuf" (current value: "131072")
+ MCA btl: parameter "btl_tcp_rcvbuf" (current value: "131072")
+ MCA btl: parameter "btl_tcp_endpoint_cache" (current value: "30720")
+ MCA btl: parameter "btl_tcp_exclusivity" (current value: "0")
+ MCA btl: parameter "btl_tcp_eager_limit" (current value: "65536")
+ MCA btl: parameter "btl_tcp_min_send_size" (current value: "65536")
+ MCA btl: parameter "btl_tcp_max_send_size" (current value: "131072")
+ MCA btl: parameter "btl_tcp_min_rdma_size" (current value: "131072")
+ MCA btl: parameter "btl_tcp_max_rdma_size" (current value: "2147483647")
+ MCA btl: parameter "btl_tcp_flags" (current value: "122")
+ MCA btl: parameter "btl_tcp_priority" (current value: "0")
+ MCA btl: parameter "btl_base_include" (current value: <none>)
+ MCA btl: parameter "btl_base_exclude" (current value: <none>)
+ MCA btl: parameter "btl_base_warn_component_unused" (current value: "1")
+	  This parameter is used to turn on warning messages when certain NICs are not used
+ MCA mtl: parameter "mtl" (current value: <none>)
+	  Default selection set of components for the mtl framework (<none> means "use all components that can be found")
+ MCA mtl: parameter "mtl_base_verbose" (current value: "0")
+	  Verbosity level for the mtl framework (0 = no verbosity)
+MCA topo: parameter "topo" (current value: <none>)
+	  Default selection set of components for the topo framework (<none> means "use all components that can be found")
+MCA topo: parameter "topo_base_verbose" (current value: "0")
+	  Verbosity level for the topo framework (0 = no verbosity)
+ MCA osc: parameter "osc" (current value: <none>)
+	  Default selection set of components for the osc framework (<none> means "use all components that can be found")
+ MCA osc: parameter "osc_base_verbose" (current value: "0")
+	  Verbosity level for the osc framework (0 = no verbosity)
+ MCA osc: parameter "osc_pt2pt_no_locks" (current value: "0")
+	  Enable optimizations available only if MPI_LOCK is not used.
+ MCA osc: parameter "osc_pt2pt_eager_limit" (current value: "16384")
+	  Max size of eagerly sent data
+ MCA osc: parameter "osc_pt2pt_priority" (current value: "0")
+MCA errmgr: parameter "errmgr_base_verbose" (current value: "0")
+	  Verbosity level for the errmgr framework
+MCA errmgr: parameter "errmgr" (current value: <none>)
+	  Default selection set of components for the errmgr framework (<none> means "use all components that can be found")
+MCA errmgr: parameter "errmgr_hnp_debug" (current value: "0")
+MCA errmgr: parameter "errmgr_hnp_priority" (current value: "0")
+MCA errmgr: parameter "errmgr_orted_debug" (current value: "0")
+MCA errmgr: parameter "errmgr_orted_priority" (current value: "0")
+MCA errmgr: parameter "errmgr_proxy_debug" (current value: "0")
+MCA errmgr: parameter "errmgr_proxy_priority" (current value: "0")
+ MCA gpr: parameter "gpr_base_verbose" (current value: "0")
+	  Verbosity level for the gpr framework
+ MCA gpr: parameter "gpr_base_maxsize" (current value: "2147483647")
+ MCA gpr: parameter "gpr_base_blocksize" (current value: "512")
+ MCA gpr: parameter "gpr" (current value: <none>)
+	  Default selection set of components for the gpr framework (<none> means "use all components that can be found")
+ MCA gpr: parameter "gpr_null_priority" (current value: "0")
+ MCA gpr: parameter "gpr_proxy_debug" (current value: "0")
+ MCA gpr: parameter "gpr_proxy_priority" (current value: "0")
+ MCA gpr: parameter "gpr_replica_debug" (current value: "0")
+ MCA gpr: parameter "gpr_replica_isolate" (current value: "0")
+ MCA gpr: parameter "gpr_replica_priority" (current value: "0")
+ MCA iof: parameter "iof_base_window_size" (current value: "4096")
+ MCA iof: parameter "iof_base_service" (current value: "0.0.0")
+ MCA iof: parameter "iof_base_verbose" (current value: "0")
+	  Verbosity level for the iof framework
+ MCA iof: parameter "iof" (current value: <none>)
+	  Default selection set of components for the iof framework (<none> means "use all components that can be found")
+ MCA iof: parameter "iof_proxy_priority" (current value: "0")
+ MCA iof: parameter "iof_svc_priority" (current value: "0")
+  MCA ns: parameter "ns_base_verbose" (current value: "0")
+	  Verbosity level for the ns framework
+  MCA ns: parameter "ns" (current value: <none>)
+	  Default selection set of components for the ns framework (<none> means "use all components that can be found")
+  MCA ns: parameter "ns_proxy_debug" (current value: "0")
+  MCA ns: parameter "ns_proxy_maxsize" (current value: "2147483647")
+  MCA ns: parameter "ns_proxy_blocksize" (current value: "512")
+  MCA ns: parameter "ns_proxy_priority" (current value: "0")
+  MCA ns: parameter "ns_replica_debug" (current value: "0")
+  MCA ns: parameter "ns_replica_isolate" (current value: "0")
+  MCA ns: parameter "ns_replica_maxsize" (current value: "2147483647")
+  MCA ns: parameter "ns_replica_blocksize" (current value: "512")
+  MCA ns: parameter "ns_replica_priority" (current value: "0")
+ MCA oob: parameter "oob" (current value: <none>)
+	  Default selection set of components for the oob framework (<none> means "use all components that can be found")
+ MCA oob: parameter "oob_base_verbose" (current value: "0")
+	  Verbosity level for the oob framework (0 = no verbosity)
+ MCA oob: parameter "oob_tcp_peer_limit" (current value: "-1")
+ MCA oob: parameter "oob_tcp_peer_retries" (current value: "60")
+ MCA oob: parameter "oob_tcp_debug" (current value: "0")
+ MCA oob: parameter "oob_tcp_sndbuf" (current value: "131072")
+ MCA oob: parameter "oob_tcp_rcvbuf" (current value: "131072")
+ MCA oob: parameter "oob_tcp_if_include" (current value: <none>)
+	  Comma-delimited list of TCP interfaces to use
+ MCA oob: parameter "oob_tcp_if_exclude" (current value: <none>)
+	  Comma-delimited list of TCP interfaces to exclude
+ MCA oob: parameter "oob_tcp_connect_sleep" (current value: "1")
+	  Enable (1) / disable (0) random sleep for connection wireup
+ MCA oob: parameter "oob_tcp_listen_mode" (current value: "event")
+	  Mode for HNP to accept incoming connections: event, listen_thread
+ MCA oob: parameter "oob_tcp_listen_thread_max_queue" (current value: "10")
+	  High water mark for queued accepted socket list size
+ MCA oob: parameter "oob_tcp_listen_thread_max_time" (current value: "10")
+	  Maximum amount of time (in milliseconds) to wait between processing accepted socket list
+ MCA oob: parameter "oob_tcp_accept_spin_count" (current value: "10")
+	  Number of times to let accept return EWOULDBLOCK before updating accepted socket list
+ MCA oob: parameter "oob_tcp_priority" (current value: "0")
+ MCA oob: parameter "oob_base_include" (current value: <none>)
+	  Components to include for oob framework selection
+ MCA oob: parameter "oob_base_exclude" (current value: <none>)
+	  Components to exclude for oob framework selection
+ MCA ras: parameter "ras_base_verbose" (current value: "0")
+	  Enable debugging for the RAS framework (nonzero = enabled)
+ MCA ras: parameter "ras" (current value: <none>)
+ MCA ras: parameter "ras_dash_host_priority" (current value: "5")
+	  Selection priority for the dash_host RAS component
+ MCA ras: parameter "ras_localhost_priority" (current value: "0")
+	  Selection priority for the localhost RAS component
+ MCA ras: parameter "ras_gridengine_debug" (current value: "0")
+	  Enable debugging output for the gridengine ras component
+ MCA ras: parameter "ras_gridengine_priority" (current value: "100")
+	  Priority of the gridengine ras component
+ MCA ras: parameter "ras_gridengine_verbose" (current value: "0")
+	  Enable verbose output for the gridengine ras component
+ MCA ras: parameter "ras_gridengine_show_jobid" (current value: "0")
+	  Show the JOB_ID of the Grid Engine job
+ MCA ras: parameter "ras_slurm_priority" (current value: "75")
+	  Priority of the slurm ras component
+ MCA rds: parameter "rds_base_verbose" (current value: "0")
+	  Verbosity level for the rds framework
+ MCA rds: parameter "rds" (current value: <none>)
+ MCA rds: parameter "rds_hostfile_debug" (current value: "0")
+	  Toggle debug output for hostfile RDS component
+ MCA rds: parameter "rds_hostfile_path" (current value: "/home/rountree/local/etc/openmpi-default-hostfile")
+	  ORTE Host filename
+ MCA rds: parameter "rds_hostfile_priority" (current value: "0")
+ MCA rds: parameter "rds_proxy_priority" (current value: "0")
+ MCA rds: parameter "rds_resfile_debug" (current value: "0")
+	  Toggle debug output for resfile RDS component
+ MCA rds: parameter "rds_resfile_name" (current value: <none>)
+	  ORTE Resource filename
+ MCA rds: parameter "rds_resfile_priority" (current value: "0")
+MCA rmaps: parameter "rmaps_base_verbose" (current value: "0")
+	  Verbosity level for the rmaps framework
+MCA rmaps: parameter "rmaps_base_schedule_policy" (current value: "unspec")
+	  Scheduling Policy for RMAPS. [slot | node]
+MCA rmaps: parameter "rmaps_base_pernode" (current value: "0")
+	  Launch one ppn as directed
+MCA rmaps: parameter "rmaps_base_n_pernode" (current value: "-1")
+	  Launch n procs/node
+MCA rmaps: parameter "rmaps_base_no_schedule_local" (current value: "0")
+	  If false, allow scheduling MPI applications on the same node as mpirun (default).  If true, do not schedule any MPI applications on the same node as mpirun
+MCA rmaps: parameter "rmaps_base_no_oversubscribe" (current value: "0")
+	  If true, then do not allow oversubscription of nodes - mpirun will return an error if there aren't enough nodes to launch all processes without oversubscribing
+MCA rmaps: parameter "rmaps_base_display_map" (current value: "0")
+	  Whether to display the process map after it is computed
+MCA rmaps: parameter "rmaps" (current value: <none>)
+	  Default selection set of components for the rmaps framework (<none> means "use all components that can be found")
+MCA rmaps: parameter "rmaps_round_robin_debug" (current value: "1")
+	  Toggle debug output for Round Robin RMAPS component
+MCA rmaps: parameter "rmaps_round_robin_priority" (current value: "1")
+	  Selection priority for Round Robin RMAPS component
+MCA rmgr: parameter "rmgr_base_verbose" (current value: "0")
+	  Verbosity level for the rmgr framework
+MCA rmgr: parameter "rmgr" (current value: <none>)
+	  Default selection set of components for the rmgr framework (<none> means "use all components that can be found")
+MCA rmgr: parameter "rmgr_proxy_priority" (current value: "0")
+MCA rmgr: parameter "rmgr_urm_priority" (current value: "0")
+ MCA rml: parameter "rml_base_debug" (current value: "0")
+	  Verbosity level for the rml famework
+ MCA rml: parameter "rml" (current value: <none>)
+	  Default selection set of components for the rml framework (<none> means "use all components that can be found")
+ MCA rml: parameter "rml_base_verbose" (current value: "0")
+	  Verbosity level for the rml framework (0 = no verbosity)
+ MCA rml: parameter "rml_oob_priority" (current value: "0")
+ MCA pls: parameter "pls_base_reuse_daemons" (current value: "0")
+	  If nonzero, reuse daemons to launch dynamically spawned processes.  If zero, do not reuse daemons (default)
+ MCA pls: parameter "pls" (current value: <none>)
+	  Default selection set of components for the pls framework (<none> means "use all components that can be found")
+ MCA pls: parameter "pls_base_verbose" (current value: "0")
+	  Verbosity level for the pls framework (0 = no verbosity)
+ MCA pls: parameter "pls_proxy_priority" (current value: "0")
+ MCA pls: parameter "pls_gridengine_debug" (current value: "0")
+	  Enable debugging of gridengine pls component
+ MCA pls: parameter "pls_gridengine_verbose" (current value: "0")
+	  Enable verbose output of the gridengine qrsh -inherit command
+ MCA pls: parameter "pls_gridengine_priority" (current value: "100")
+	  Priority of the gridengine pls component
+ MCA pls: parameter "pls_gridengine_orted" (current value: "orted")
+	  The command name that the gridengine pls component will invoke for the ORTE daemon
+ MCA pls: parameter "pls_rsh_debug" (current value: "0")
+	  Whether or not to enable debugging output for the rsh pls component (0 or 1)
+ MCA pls: parameter "pls_rsh_num_concurrent" (current value: "128")
+	  How many pls_rsh_agent instances to invoke concurrently (must be > 0)
+ MCA pls: parameter "pls_rsh_force_rsh" (current value: "0")
+	  Force the launcher to always use rsh, even for local daemons
+ MCA pls: parameter "pls_rsh_orted" (current value: "orted")
+	  The command name that the rsh pls component will invoke for the ORTE daemon
+ MCA pls: parameter "pls_rsh_priority" (current value: "10")
+	  Priority of the rsh pls component
+ MCA pls: parameter "pls_rsh_delay" (current value: "1")
+	  Delay (in seconds) between invocations of the remote agent, but only used when the "debug" MCA parameter is true, or the top-level MCA debugging is enabled (otherwise this value is ignored)
+ MCA pls: parameter "pls_rsh_reap" (current value: "1")
+	  If set to 1, wait for all the processes to complete before exiting.  Otherwise, quit immediately -- without waiting for confirmation that all other processes in the job have completed.
+ MCA pls: parameter "pls_rsh_assume_same_shell" (current value: "1")
+	  If set to 1, assume that the shell on the remote node is the same as the shell on the local node.  Otherwise, probe for what the remote shell.
+ MCA pls: parameter "pls_rsh_agent" (current value: "ssh : rsh")
+	  The command used to launch executables on remote nodes (typically either "ssh" or "rsh")
+ MCA pls: parameter "pls_slurm_debug" (current value: "0")
+	  Enable debugging of slurm pls
+ MCA pls: parameter "pls_slurm_priority" (current value: "75")
+	  Default selection priority
+ MCA pls: parameter "pls_slurm_orted" (current value: "orted")
+	  Command to use to start proxy orted
+ MCA pls: parameter "pls_slurm_args" (current value: <none>)
+	  Custom arguments to srun
+ MCA sds: parameter "sds" (current value: <none>)
+	  Default selection set of components for the sds framework (<none> means "use all components that can be found")
+ MCA sds: parameter "sds_base_verbose" (current value: "0")
+	  Verbosity level for the sds framework (0 = no verbosity)
+ MCA sds: parameter "sds_env_priority" (current value: "0")
+ MCA sds: parameter "sds_seed_priority" (current value: "0")
+ MCA sds: parameter "sds_singleton_priority" (current value: "0")
+ MCA sds: parameter "sds_pipe_priority" (current value: "0")
+ MCA sds: parameter "sds_slurm_priority" (current value: "0")

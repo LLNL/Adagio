@@ -1,0 +1,78 @@
+Welcome to Adagio.
+
+The source code herein was used as the basis of Rountree ICS 2009.  It
+was my first nontrivial MPI tool and was never intended to be released
+to the wider world.  I beleive it was tied rather tightly to a subset
+of a (now) old MPI implementation.  I expect a nontrivial amount of 
+work would have to be done to get this to compile and run again, and
+that effort would probably be better served starting from scratch 
+(using Todd Gamblin's wrap.py PMPI shim generator, for example).
+
+The code is GPL'ed; proper notices will be added eventually.  Copyright
+is either with myself or the University of Georgia (LLNL does not
+have any copyright claim on this code.)
+
+Here's the short version of how this works (based on what I remember
+from five years ago):
+
+1)  The library intercepts every MPI communication call on every 
+rank.  The computation between two MPI communication calls on a 
+given rank is a "task".
+
+2)  The library then walks the call stack and hashes the pointers.
+The least significant bits of the hash are used as an index into
+an array.  The amount of computation for that particular task and
+the execution time of the task at this particular point in the 
+stack are stored in the index of the *previous* MPI call.  We also
+store the length of time taken by the actual MPI library call.
+
+3)  The library then checks to see if we known anything about the
+*upcoming* computation (if we've been here before; recall that 
+scientific codes tend to be highly iterative).  If there was 
+"slack" present last time (i.e. blocking time in the MPI communication
+call), we'll predict we can slow down the code to consume the slack
+(leaving a bit of time buffer).  If we slowed down last time and 
+the only remaining slack is the buffer, all is well and we'll slow
+down the same amount again.  If we slowed down last time and the
+buffer time disappeared, something unpredicted happened and we 
+reset to "run as fast as possible".
+
+4)  Slowing down involves finding the "ideal frequency", which will
+generally be a combination of available discrete frequencies that
+the processor supports.  We set a timer, run for a while in the 
+higher frequency, then switch to the lower frequency when the timer
+expires.
+
+5)  For as fragile as this is, it worked remarkably well, even with
+chaotic codes such as ParaDiS.  See Rountree SC 2007 for the theory
+behind the process.
+
+The code assumes only one core per processor is being used.  It 
+does not handle more recent improvements such as Intel's turbo 
+mode and the processor performance inhomogeneity that comes with it.
+Porting this to MPI+OpenMP code should not be too onerous as long as
+one assumes no MPI calls are made within OpenMP regions and only 
+one MPI process exists per processor (or, someday soon, per voltage
+domain).  
+
+Looking back on this work, the primary contribution was moving the 
+community away from metrics such as "Energy x Delay^2" by asking
+how much energy could be saved assuming only negligible (<1%) slowdown.
+While that question was good enough for a disseration (and may still
+be of interest for smaller supercomputing centers), the far more 
+interesting question for exascale and beyond is "How do we optimize
+execution time (or turnaround time) given a hard power bound in a
+hardware-overprovisioned system?"  (See Rountree HPPAC 2012.)  
+Hardware enforced power bounds such as provided by Intel's Running
+Average Power Limit (RAPL) technology allow us to implement runtime
+systems where we are able to use job-wide power bounds.  Adagio
+is currently being rewritten from scratch to be able to handle
+this scenario.
+
+Barry Rountree
+Center for Applied Scientific Computing
+Lawrence Livermore National Laboratory
+rountree@llnl.gov
+16 Jan 2014
+
+
