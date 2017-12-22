@@ -65,14 +65,12 @@ execution time (or turnaround time) given a hard power bound in a
 hardware-overprovisioned system?"  (See Rountree HPPAC 2012.)  
 Hardware enforced power bounds such as provided by Intel's Running
 Average Power Limit (RAPL) technology allow us to implement runtime
-systems where we are able to use job-wide power bounds.  Adagio
-is currently being rewritten from scratch to be able to handle
-this scenario.
+systems where we are able to use job-wide power bounds.  
 
 Barry Rountree
-Center for Applied Scientific Computing
-Lawrence Livermore National Laboratory
-rountree@llnl.gov
 16 Jan 2014
+
+Updated 22 Dec 2017
+
 
 
